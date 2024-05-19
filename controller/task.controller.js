@@ -10,6 +10,7 @@ taskController.createTask = async (req, res) => {
         await newTask.save();
         res.status(200).json({ status: 'ok', data: newTask });
         res.send();
+        //return res.status(200).json({ status: "success", data: newTask });
     } catch (err) {
         res.status(400).json({ status: 'fail', error: err });
     }
@@ -43,7 +44,15 @@ taskController.updateTask = async (req, res) => {
 
 // 할일 삭제
 taskController.deleteTask = async (req, res) => {
-
+    try {
+        const deleteTask = await Task.findByIdAndDelete(req.params.id);
+        if (!deleteTask) {
+            throw new Error("App cannot find the task");
+        }
+        res.status(200).json({ status: 'ok', data: deleteTask });
+    } catch (err) {
+        res.status(400).json({ status: 'fail', error: err });
+    }
 };
 
 module.exports = taskController;

@@ -14,7 +14,7 @@ const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
 const mongoURI = MONGODB_URI_PROD;
 
 mongoose
-    .connect(mongoURI, { useNewUrlParser: true })
+    .connect(mongoURI)
     .then(() => {
         console.log("mongoose connected");
     })
